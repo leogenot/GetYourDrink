@@ -29,20 +29,20 @@ function likes_cards_by_id($card_id)
 {
     $error = null;
     //verifier si cet card à deja un like de cet utilisateur, si oui on le retire
-    if (is_null(get_session('is_authentificate')))
-        redirect('./connexion');
     $likes_data = findBy(['likes'], 'COUNT(id) as is_like, id as id_like', 'likes.user_id = ' . get_session('user_id') . ' AND likes.card_id = ' . $card_id);
     if (!is_null($likes_data) && $likes_data->is_like == 1) {
         try {
             remove_like_by_id($likes_data->id_like);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
+            die('Erreur : ' . $exception->getMessage());
             $error = 'Une erreur interne est survenue lors de la suppresion du like ';
         }
     } else {
         //Sinon on ajoute le like
         try {
             add_like($card_id);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
+            die('Erreur : ' . $exception->getMessage());
             $error = 'Une erreur est survenue lors du like ';
         }
     }
@@ -293,7 +293,11 @@ function user_logged($username, $email, $password, $urlTo)
                     {
                         var_dump($row["id"]);
                         $_SESSION["is_authentificate"] = $row["id"];	//session name is "user_login"
-                        
+                        login($urlTo, array(
+                            'is_authentificate' => 'oui',
+                            'user_id' => $row['id'],
+                            'usermail' => $row['mail'],
+                        ));
                         echo "Successfully Login...";
                         redirect($urlTo);
                     } else {
