@@ -1,6 +1,6 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . "/likes/model/Model.php");
+require($_SERVER['DOCUMENT_ROOT'] . "/projet/model/Model.php");
 function getPosts()
 {
     $bdd = dbConnect();

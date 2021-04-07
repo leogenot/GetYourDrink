@@ -1,6 +1,6 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . "/likes/controller/functions.php");
+require($_SERVER['DOCUMENT_ROOT'] . "/projet/controller/functions.php");
 session_start();
 
 //Si l'utilisateur est connecté, on le redirige à la page d'accueil
@@ -17,7 +17,7 @@ if (isset($_POST['btn_register'])) {
 	$email		= strip_tags($_REQUEST['txt_email']);		//textbox name "txt_email"
 	$password	= strip_tags($_REQUEST['txt_password']);       //textbox name "txt_password"
 
-    user_register($username, $email, $password, "/likes/index.php");
+    user_register($username, $email, $password, "/projet/index.php");
 }
 
 

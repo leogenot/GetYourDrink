@@ -1,6 +1,6 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . "/likes/model/postModel.php");
+require($_SERVER['DOCUMENT_ROOT'] . "/projet/model/postModel.php");
 
 
 
