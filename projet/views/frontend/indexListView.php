@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 
 //Si l'utilisateur nest pas connecté, on le redirige à la page de connexion
@@ -33,17 +32,24 @@ while ($data = $card->fetch())
            <p class="content">
                <?= purge($data['content']) ?>
            </p>
+           <p class="shots">
+               <?= $data['shots'] ?> Gorgées le sang
+           </p>
            <a href="likes.php?card_id=<?= $data['id'] ?>" class="liker">Liker (<?= count_all_likes_by_card_id($data['id']) ?>)</a>
        </div>
         <hr>
 </div>
 
-    
+
 <?php
+
 }
 $card->closeCursor();
 ?>
+
 <?php $content = ob_get_clean(); ?>
+
+
 
 <?php require('template.php'); ?>
 

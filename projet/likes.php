@@ -1,5 +1,5 @@
 <?php
-require('controller/functions.php');
+require($_SERVER['DOCUMENT_ROOT'].'/projet/controller/functions.php');
 session_start();
 
 //On recupere l'id de l'card à liker

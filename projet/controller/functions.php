@@ -21,6 +21,8 @@ function post()
     require_once('views/frontend/indexView.php');
 }
 
+
+
 /**
  * Liker un card à partir de son id et celui de l'utilisateur
 
@@ -50,7 +52,7 @@ function likes_cards_by_id($card_id)
 }
 
 /**
- * Supprimer un like attribuer à un card
+ * Supprimer un like attribuer à une card
 
  */
 function remove_like_by_id($like_id)
@@ -59,7 +61,7 @@ function remove_like_by_id($like_id)
 }
 
 /**
- * Ajoute le like à l'card
+ * Ajoute le like à la card
 
  */
 function add_like($card_id)
@@ -70,7 +72,7 @@ function add_like($card_id)
     ]);
 }
 /**
- * Permet de rechercher un like à travers son utilisateur et l'card
+ * Permet de rechercher un like à travers son utilisateur et la card
 
  */
 function findBy(array $tables, $field, $condition)
@@ -173,7 +175,7 @@ function get_session($name)
 
 /**
  * Créer une session avec plusieurs paramètres et valeurs
- * exemple: ( make_sessions(array('username' => 'instantech', 'email' => 'instantech@gemail.com')
+ * exemple: ( make_sessions(array('username' => 'username', 'email' => 'email@gemail.com')
 
  */
 function make_sessions(array $options)
@@ -186,7 +188,7 @@ function make_sessions(array $options)
 }
 
 /**
- * Recoit une url vers laquelle serait rediriger l'utilisateur si besoin
+ * Recoit une url vers laquelle serait redirigé l'utilisateur si besoin
  * exemple: destroy_session('connexion.php')
  *Detruit une session
 
@@ -218,13 +220,15 @@ function redirect($urlTo)
 function logout($fileTo)
 {
     session_start();
+    $user_id = $_SESSION["user_id"];
+    empty_user_temp_table($user_id);
     session_destroy();
     redirect($fileTo);
     exit;
 }
 
 /**
- * Connecte un utilisateur en le redirigeants vers la page spécifier en argument
+ * Connecte un utilisateur en le redirigeants vers la page spécifiée en argument
  * exemple: login('home.php or home.php or accueil.php')
 
  */
@@ -240,10 +244,10 @@ function login($urlTo, array $options = [])
 
 
 /**
- * exemple: insertInTo('clients',
- *    array('name' => 'instantech',
- *          'email' => 'instantech@email.com',
- *          'username' => 'instantech28'))
+ * exemple: insertInTo('user',
+ *    array('name' => 'name',
+ *          'email' => 'email@email.com',
+ *          'username' => 'username'))
 
  */
 function insertInTo($table_name, array $data)
@@ -256,7 +260,7 @@ function insertInTo($table_name, array $data)
 }
 /**
  * Genere un mot de passe de 256 bit
- * exemple:  $password = create_hashed_password('instantech@123!@')
+ * exemple:  $password = create_hashed_password('azerty123')
 
  */
 function create_hashed_password($password)
@@ -264,7 +268,7 @@ function create_hashed_password($password)
     return hash('sha256', purge($password));
 }
 /**
- * connecte un utilisateur sur le blog
+ * connecte un utilisateur sur le site
 
  */
 function user_logged($username, $email, $password, $urlTo)
@@ -363,25 +367,42 @@ function user_register($username, $email, $password, $urlTo)
     }
 }
 
-/**
- * Selectionne et renvoie toutes les données d'une table
- * exemple: $resultat = findByWhere('user',
- *     array('user.name','user.email','user.password')
- *     array('name' => 'instantech',
- *           'eemail' => 'instantech@email.com),
- *     array('='),
- *           'and')
 
- */
-function userSelect($table_name, array $dataFields, array $criterias, $operators, $conditions = null)
+function register_temp_user($username, $urlTo)
 {
-    $bdd = dbConnect();
-    $query = 'SELECT COUNT(id) as exist,' . implode(',', $dataFields) . ' FROM ' . $table_name . ' WHERE ' . create_querySelect($criterias, $operators, $conditions);
-    $requette = $bdd->prepare($query);
-    $requette->execute(getTableValues($criterias));
-    $resultats = $requette->fetch();
-    return $resultats;
+    $user_id = $_SESSION["user_id"];
+    if(empty($username)){
+		echo "Please enter username";	//check username textbox not empty 
+	}
+	else
+	{	
+		try
+		{	
+            
+			$row = get_user_db_temp_register($username)->fetch(PDO::FETCH_ASSOC);
+			
+			if($row["username"]==$username){
+				echo "Sorry username already exists";	//check condition username already exists 
+			}
+			else if(!isset($errorMsg)) //check no "$errorMsg" show then continue
+			{
+				
+                if(insert_db_new_user_temp($username, $user_id) == 1){
+                    echo "Register Successfully.....";
+                    redirect($urlTo);
+                }
+				
+			}
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+    }
 }
+
+
+
 
 function count_all_likes_by_card_id($card_id)
 {
