@@ -1,16 +1,18 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/require.php");
 
-require($_SERVER['DOCUMENT_ROOT'] . "/projet/controller/functions.php");
 session_start();
-
+var_dump($_SESSION);
 //Si l'utilisateur nest pas connecté, on le redirige à la page de connexion
-if (is_null(get_session('is_authentificate'))) {
+if (is_null(UserController::get_session('is_authentificate'))) {
     try {
-        redirect('views/frontend/connexionView.php');
+        FunctionsController::redirect('connexionView.php');
     } catch (Exception $exception) {
         die('Erreur : ' . $exception->getMessage());
     }
 }
+
+
 
 if (isset($_POST['btn_save_players'])) {
     $username    = strip_tags($_REQUEST["txt_player_name1"]);    //textbox name "txt_player_name1"  
@@ -18,14 +20,12 @@ if (isset($_POST['btn_save_players'])) {
     //$username    = strip_tags($_REQUEST["txt_player_name3"]);    //textbox name "txt_player_name3"  
     //$username    = strip_tags($_REQUEST["txt_player_name4"]);    //textbox name "txt_player_name4"  
 
-    register_temp_user($username, "/projet/index.php");
+    TempUserController::register_temp_user($username, "/projet/index.php");
 }
 ?>
 
-<?php $title = 'Choix des joueurs'; ?>
 <?php ob_start(); ?>
 
-<a href="../../logout.php">Logout</a>
 
 
 <h1>Entrez les joueurs:</h1>
@@ -40,7 +40,7 @@ if (isset($_POST['btn_save_players'])) {
 </select>
 <label>Selection du nombre de joueurs</label>
 
-<form method="post" class="form-players">
+<form method="post" class="form-players" >
     <div>
         <div class="player-number">
             <div id="player-1" class="player-1">joueur 1 : <input type="text" id="name1" name="txt_player_name1" placeholder="username" ></div><!-- 
@@ -58,15 +58,4 @@ if (isset($_POST['btn_save_players'])) {
 
 
 
-
-
-
-
-
-
-
-<?php $content = ob_get_clean(); ?>
-
-
-
-<?php require('template.php'); ?>
+<?php //require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/views/layout.php"); ?>
