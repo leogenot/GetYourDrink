@@ -1,9 +1,7 @@
 <?php
+session_start();
+require_once($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/require.php");
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/require.php");
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 
 
@@ -15,7 +13,7 @@ if (isset($_POST['btn_register'])) {
 	$email		= strip_tags($_REQUEST['txt_email']);		//textbox name "txt_email"
 	$password	= strip_tags($_REQUEST['txt_password']);       //textbox name "txt_password"
 
-	UserController::user_register($username, $email, $password, "/projet/index.php");
+	user_controller::user_register($username, $email, $password, "/alcoolimac/projet/index.php");
 }
 
 
@@ -26,7 +24,7 @@ if (isset($_POST['btn_register'])) {
 <center>
 	<h2>Inscription</h2>
 
-	<form method="post" class="form-horizontal">
+	<form method="post" action="" class="form-horizontal">
 
 
 		<div class="form-group">
@@ -52,7 +50,7 @@ if (isset($_POST['btn_register'])) {
 
 		<div class="form-group">
 			<div>
-				<input type="submit" name="btn_register" value="S'inscrire">
+				<input type="submit" name="btn_register" value="Sinscrire">
 			</div>
 		</div>
 
@@ -66,4 +64,4 @@ if (isset($_POST['btn_register'])) {
 
 	</form>
 </center>
-<?php //require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/views/layout.php"); ?>
+<?php //require_once($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/views/layout.php"); ?>

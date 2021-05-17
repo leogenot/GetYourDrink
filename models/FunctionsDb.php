@@ -60,7 +60,7 @@ class FunctionsDb extends Db
     static function findBy(array $tables, $field, $condition)
     {
         $db = Db::initDB();
-        $query = 'SELECT ' . $field . ' FROM ' . implode(',', $tables) . ' WHERE ' . $condition;
+        $query = "SELECT "  . $field . " FROM " . implode(',', $tables) . " WHERE " . $condition;
         $request = $db->query($query);
         $response = $request->fetch(PDO::FETCH_OBJ);
         return (null != $response) ? $response : null;

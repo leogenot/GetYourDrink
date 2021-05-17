@@ -10,7 +10,7 @@ class Likes
     {
         $error = null;
         //verifier si cet card à deja un like de cet utilisateur, si oui on le retire
-        $likes_data = FunctionsDb::findBy(['likes'], 'COUNT(id) as is_like, id as id_like', 'likes.user_id = ' . UserController::get_session('user_id') . ' AND likes.card_id = ' . $card_id);
+        $likes_data = FunctionsDb::findBy(['likes'], 'COUNT(id) as is_like, id as id_like', 'likes.user_id = ' . user_controller::get_session('user_id') . ' AND likes.card_id = ' . $card_id);
         if (!is_null($likes_data) && $likes_data->is_like == 1) {
             try {
                 Likes::remove_like_by_id($likes_data->id_like);
@@ -46,7 +46,7 @@ class Likes
     {
         FunctionsDb::insertInTo('likes', [
             'card_id' => $card_id,
-            'user_id' => UserController::get_session('user_id')
+            'user_id' => user_controller::get_session('user_id')
         ]);
     }
     static function count_all_likes_by_card_id($card_id)

@@ -35,6 +35,22 @@ class UserModel
         }
         return 0;
     }
+
+    static function get_number_of_shots($user_id)
+    {
+        $bdd = Db::initDB();
+        $req = $bdd->prepare("SELECT count(*) FROM coktails WHERE userid=:uid"); //sql select query
+        $req->execute(array(':uid' => $user_id));
+        return $req;
+    }
+/* 
+    static function add_shots($username)
+    {
+        $bdd = Db::initDB();
+        $req = $bdd->prepare("INSERT INTO user FROM user WHERE username=:uname"); //sql select query
+        $req->execute(array(':uname' => $username));
+        return $req;
+    } */
 }
 
 class TempUserModel extends UserModel

@@ -1,8 +1,8 @@
-<?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/require.php");
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+<?php   
+session_start();
+require_once($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/require.php");
+
+
 
 
 
@@ -12,7 +12,7 @@ if (isset($_POST['btn_login'])) {
     $email        = strip_tags($_REQUEST["txt_username_email"]);    //textbox name "txt_username_email"
     $password    = strip_tags($_REQUEST["txt_password"]);            //textbox name "txt_password"
 
-    UserController::user_logged($username, $email, $password, "/projet/views/pages/choosePlayers.php");
+    user_controller::user_logged($username, $email, $password, "/alcoolimac/projet/views/pages/choosePlayers.php");
 }
 
 
@@ -22,7 +22,7 @@ if (isset($_POST['btn_login'])) {
 <center>
     <h2>Connexion</h2>
 
-    <form method="post" class="form-horizontal">
+    <form method="post" action="" class="form-horizontal">
 
         <div>
             <label>Nom d'utilisateur ou E-mail</label>
@@ -46,7 +46,7 @@ if (isset($_POST['btn_login'])) {
 
         <div>
             <div>
-                Pas de compte? <a href="/projet/views/pages/registerView.php">
+                Pas de compte? <a href="/alcoolimac/projet/views/pages/registerView.php">
                     <p class="text-info">Créer un compte</p>
                 </a>
             </div>
@@ -54,4 +54,4 @@ if (isset($_POST['btn_login'])) {
 
     </form>
 </center>
-<?php //require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/views/layout.php"); ?>
+<?php //require_once($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/views/layout.php"); ?>

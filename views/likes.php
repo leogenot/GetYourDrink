@@ -1,13 +1,14 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/projet/require.php");
 session_start();
+require($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/require.php");
+
 
 //On recupere l'id de l'card à liker
 //La fonction purge nétoie la variable en s'assurant qu'on a pas d'injection
 //Cela nous permet d'avoir un nombre ou null, si l'utilisateur tapaait n'imporque quoi dans l'url
 $cards_id = (isset($_GET['card_id'])  &&
-    (int)FunctionsController::purge($_GET['card_id']) > 0 ) ?
-    FunctionsController::purge($_GET['card_id']) : null;
+    (int)functions_controller::purge($_GET['card_id']) > 0 ) ?
+    functions_controller::purge($_GET['card_id']) : null;
 
 //On verifie si l'id de l'card est différent de null,
 // sinon on arrête tout, pas la peine de continuer
@@ -26,6 +27,6 @@ if (!is_null($error))
 else
     try {
         
-        FunctionsController::redirect($_SERVER['HTTP_REFERER']);
+        functions_controller::redirect($_SERVER['HTTP_REFERER']);
     } catch (Exception $e) {
     }

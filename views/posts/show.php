@@ -1,14 +1,14 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/projet/require.php");
-$min = 1;
-$max = Post::number_of_cards();;
+require($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/require.php");
+$max = Post::get_card_max_id();
+$min = Post::get_card_min_id();
 $id = rand($min, $max);
 
 
 ?>
 
 
-<p>This is the requested post:</p>
+<p>This is the requested card:</p>
 
 <div class="container">
     <div class="card">
@@ -19,7 +19,7 @@ $id = rand($min, $max);
       <p class="shots">
         <?= $post->shots ?> Gorgées le sang
       </p>
-      <a href="/projet/views/likes.php?card_id=<?= $post->id ?>" id="like">Liker (
+      <a href="/alcoolimac/projet/views/likes.php?card_id=<?= $post->id ?>" id="like">Liker (
         <?= Likes::count_all_likes_by_card_id($post->id) ?>)
       </a>
       <a href="#" id="drink"> J'ai bu
@@ -32,4 +32,4 @@ $id = rand($min, $max);
     </div>
     <hr>
   </div>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/views/layout.php"); ?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/views/layout.php"); ?>

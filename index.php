@@ -1,15 +1,10 @@
 <?php
-
-
+session_start();
 require_once('require.php');
 
 
-
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-}
 //Si l'utilisateur est connecté, on le redirige à la page d'accueil
-if (!is_null(UserController::get_session('is_authentificate'))) {
+if (!is_null(user_controller::get_session('is_authentificate'))) {
   try {
     if (isset($_GET['controller']) && isset($_GET['action'])) {
       $controller = $_GET['controller'];
@@ -22,14 +17,10 @@ if (!is_null(UserController::get_session('is_authentificate'))) {
     die('Erreur : ' . $exception->getMessage());
   }
 } else {
-  var_dump(UserController::get_session('is_authentificate'));
-  FunctionsController::redirect("./views/pages/connexionView.php");
+  functions_controller::redirect("/alcoolimac/projet/views/pages/connexionView.php");
 }
 
 
 
-
-
-
-
 require_once('views/layout.php');
+?>

@@ -1,12 +1,13 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/require.php");
-
 session_start();
+require_once($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/require.php");
+
+
 var_dump($_SESSION);
 //Si l'utilisateur nest pas connecté, on le redirige à la page de connexion
-if (is_null(UserController::get_session('is_authentificate'))) {
+if (is_null(user_controller::get_session('is_authentificate'))) {
     try {
-        FunctionsController::redirect('connexionView.php');
+        functions_controller::redirect('connexionView.php');
     } catch (Exception $exception) {
         die('Erreur : ' . $exception->getMessage());
     }
@@ -20,7 +21,7 @@ if (isset($_POST['btn_save_players'])) {
     //$username    = strip_tags($_REQUEST["txt_player_name3"]);    //textbox name "txt_player_name3"  
     //$username    = strip_tags($_REQUEST["txt_player_name4"]);    //textbox name "txt_player_name4"  
 
-    TempUserController::register_temp_user($username, "/projet/index.php");
+    tempuser_controller::register_temp_user($username, "/alcoolimac/projet/index.php");
 }
 ?>
 
@@ -54,8 +55,21 @@ if (isset($_POST['btn_save_players'])) {
     <div>
         <input type="submit" name="btn_save_players" value="Enregistrer">
     </div>
+
+
 </form>
 
 
+<div class="cocktail_container">
+  <div class="main">
+    <h2>Dropdown with search box<h2>
+    <select name="">
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+      <option value="4">Four</option>
+  </select>
+  </div>
+</div>
 
-<?php //require_once($_SERVER['DOCUMENT_ROOT'] . "/projet/views/layout.php"); ?>
+<script src="/alcoolimac/projet/public/js/script.js"></script>

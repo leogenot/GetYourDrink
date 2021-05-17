@@ -4,12 +4,12 @@
 
     switch($controller) {
       case 'pages':
-        $controller = new PagesController();
+        $controller = new pages_controller();
       break;
       case 'posts':
         // we need the model to query the database later in the controller
-        require_once('models/post.php');
-        $controller = new PostsController();
+        require_once('models/Post.php');
+        $controller = new posts_controller();
       break;
     }
 
@@ -18,7 +18,7 @@
 
   // we're adding an entry for the new controller and its actions
   $controllers = array('pages' => ['login', 'register', 'home', 'error'],
-                       'posts' => ['index', 'show']);
+                       'posts' => ['index', 'show', 'remove']);
 
   if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {
