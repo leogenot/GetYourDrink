@@ -53,7 +53,7 @@ class UserModel
     } */
 }
 
-class TempUserModel extends UserModel
+/* class TempUserModel extends UserModel
 {
     static function get_user_db_temp_register($username)
     {
@@ -81,3 +81,4 @@ class TempUserModel extends UserModel
         return $affectedLines;
     }
 }
+ */

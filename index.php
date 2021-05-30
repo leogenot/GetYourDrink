@@ -16,11 +16,11 @@ if (!is_null(user_controller::get_session('is_authentificate'))) {
   } catch (Exception $exception) {
     die('Erreur : ' . $exception->getMessage());
   }
+
+// Sinon on redirige l'utilisateur vers la page de connexion
 } else {
   functions_controller::redirect("/alcoolimac/projet/views/pages/connexionView.php");
 }
-
-
 
 require_once('views/layout.php');
 ?>

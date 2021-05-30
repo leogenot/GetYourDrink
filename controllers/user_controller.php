@@ -69,7 +69,7 @@ class user_controller
                     {
                         if (password_verify($password, $row["password"])) //check condition user taypable "password" are match from database "password" using password_verify() after continue
                         {
-                            var_dump($row["id"]);
+                            //var_dump($row["id"]);
                             $_SESSION["is_authentificate"] = $row["id"];    //session name is "user_login"
                             user_controller::login($urlTo, array(
                                 'is_authentificate' => 'oui',
@@ -101,9 +101,18 @@ class user_controller
      */
     static function logout($fileTo)
     {
+        echo "<script> console.log('cc');
+        sessionStorage.removeItem('count_drink');
+        sessionStorage.clear();</script>";
         session_start();
         $user_id = $_SESSION["user_id"];
         TempUserModel::empty_user_temp_table($user_id);
+        unset($_SESSION["user_id"]);
+        unset($_SESSION["is_authentificate"]);
+        $_SESSION["user_id"] = NULL;
+        var_dump($_SESSION["user_id"]);
+        $_SESSION = [];
+        session_unset();
         session_destroy();
         functions_controller::redirect($fileTo);
         exit;
@@ -120,7 +129,7 @@ class user_controller
         } else if (empty($password)) {
             echo "Please enter password";    //check passowrd textbox not empty
         } else if (strlen($password) < 6) {
-            $errorMsg[] = "Password must be atleast 6 characters";    //check passowrd must be 6 characters
+            echo "Password must be atleast 6 characters";    //check passowrd must be 6 characters
         } else {
             try {
 

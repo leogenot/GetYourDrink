@@ -1,11 +1,9 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . "/alcoolimac/projet/require.php");
-$max = Post::get_card_max_id();
-$min = Post::get_card_min_id();
-$id = rand($min, $max);
-
 
 ?>
+
+<p>Vous êtes à <span id="myDrinks"></span> gorgées à vous tous la team !</p>
 
 
 <p>This is the requested card:</p>
@@ -16,15 +14,15 @@ $id = rand($min, $max);
       <p class="content">
         <?= $post->content ?>
       </p>
-      <p class="shots">
-        <?= $post->shots ?> Gorgées le sang
+      <p>
+        <span id="shots"><?= $post->shots ?></span> Gorgées le sang
       </p>
       <a href="/alcoolimac/projet/views/likes.php?card_id=<?= $post->id ?>" id="like">Liker (
         <?= Likes::count_all_likes_by_card_id($post->id) ?>)
       </a>
-      <a href="#" id="drink"> J'ai bu
+      <a href="#"><button id="drink" onclick="getCountDrink()"> J'ai bu </button>
       </a>
-      <a href='?controller=posts&action=show&id=<?php echo $id; ?>' id="change"> Changer de carte
+      <a href='?controller=posts&action=showRandom' id="change"> Changer de carte
       </a>
 
 
